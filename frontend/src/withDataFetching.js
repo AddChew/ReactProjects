@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 export default function WithDataFetching(WrappedComponent) {
     class WithDataFetching extends React.Component {
@@ -9,9 +10,8 @@ export default function WithDataFetching(WrappedComponent) {
 
         async componentDidMount() {
             try {
-                const data = await fetch(props.dataSource)
-                const dataJSON = await data.json()
-                if (dataJSON) this.setState({...this.state, data: dataJSON, loading: false})
+                const response = await axios.get(this.props.dataSource)
+                this.setState({...this.state, data: response.data, loading: false})
             } catch(error) {
                 this.setState({...this.state, loading: false, error: error.message})
             }

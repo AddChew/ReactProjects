@@ -35,5 +35,3 @@ class ItemTestCase(TestCase):
         item = Item.objects.get(id = 1)
         list1 = List.objects.get(id = 1)
         self.assertEqual(item.list, list1)
-
-

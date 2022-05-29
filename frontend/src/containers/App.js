@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import Header from '../components/Header/Header'
 import Lists from './Lists/Lists'
 import List from './List/List'
-import ModalForm from '../components/ModalForm/ModalForm'
+import ModalForm from './ModalForm/ModalForm'
 
 const GlobalStyle = createGlobalStyle`
   body {

@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter,
     Form, FormGroup, Input, Alert } from '@bootstrap-styled/v4'
-import { AppContext, ITEMS_API, LISTS_API } from '../../containers/App'
+import { AppContext, ITEMS_API, LISTS_API } from '../App'
 import axios from 'axios'
 
 const CustomInput = styled(Input)`

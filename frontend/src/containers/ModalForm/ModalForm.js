@@ -13,8 +13,8 @@ function ModalForm() {
     const [state, setState] = useContext(AppContext)
     const [formState, setFormState] = useState({error: ''})
 
-    // TODO: Edit Item
-    function submit() {
+    function submit(event) {
+        event.preventDefault()
         const form = document.forms[0]
         const formData = new FormData(form)
         let api = LISTS_API
@@ -56,19 +56,19 @@ function ModalForm() {
     return (
         <Modal isOpen={ modalState.open } toggle={ close }>
             <ModalHeader toggle={ close }>{ modalState.title }</ModalHeader>
-            <ModalBody>
-                { formState.error && <Alert color="danger">{ formState.error }</Alert>}
-                <Form>
+            <Form onSubmit={ submit }>
+                <ModalBody>
+                    { formState.error && <Alert color="danger">{ formState.error }</Alert>}
                     { !modalState.new_item && <FormGroup><CustomInput type='text' placeholder='Title' name='title' required /></FormGroup> }
                     { modalState.new_item && <FormGroup><CustomInput type='text' placeholder='Item' name='item' defaultValue={ modalState.item.title } required /></FormGroup> }
                     { modalState.new_item && <FormGroup><CustomInput type='number' min='0' placeholder='Quantity' name='qty' step='1' defaultValue={ modalState.item.qty } required /></FormGroup> }
                     { modalState.new_item && <FormGroup><CustomInput type='number' min='0' placeholder='Price' name='price' step='0.01' defaultValue={ modalState.item.price } required /></FormGroup> }
-                </Form>
-            </ModalBody>
-            <ModalFooter>
-                <Button color='primary' onClick={ submit }>Submit</Button>
-                <Button color='danger' onClick={ close }>Cancel</Button>
-            </ModalFooter>
+                </ModalBody>
+                <ModalFooter>
+                    <Button type="submit" color='primary'>Submit</Button>
+                    <Button color='danger' onClick={ close }>Cancel</Button>
+                </ModalFooter>
+            </Form>
         </Modal>
     )
 }

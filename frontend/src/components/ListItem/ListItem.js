@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import { Button } from '@bootstrap-styled/v4'
+import { Edit } from '@styled-icons/material/Edit'
 import { Delete } from '@styled-icons/material/Delete'
 import { AppContext } from '../../containers/App'
 
@@ -42,11 +43,20 @@ const Created = styled.p`
 const DeleteButton = styled(Button)`
     font-size: 0.95rem;
     padding: 0rem !important;
+    margin-left: 0.25rem;
     background-color: transparent !important;
     border: none !important;
 `
 
 const DeleteIcon = styled(Delete)`
+    color: #d6d6d6;
+
+    :hover {
+        color: #717171;
+    }
+`
+
+const EditIcon = styled(Edit)`
     color: #d6d6d6;
 
     :hover {
@@ -66,6 +76,11 @@ function ListItem({ list }) {
         setState({...state, active_list: list.url})
     }
 
+    function open(event) {
+        event.stopPropagation()
+        setState({...state, modal: {open: true, new_item: false, title: 'Edit List', item: list}})
+    }
+
     function deleteListItem(event) {
         event.stopPropagation()
         axios.delete(list.url)
@@ -79,6 +94,9 @@ function ListItem({ list }) {
                 <Title>{ list.title }</Title>
                 <DeleteWrapper>
                     <Created>{ list.created }</Created>
+                    <DeleteButton color="secondary" onClick={ open }>
+                        <EditIcon size="1.5rem" />
+                    </DeleteButton>
                     <DeleteButton color="secondary" onClick={ deleteListItem }>
                         <DeleteIcon size="1.5rem" />
                     </DeleteButton>

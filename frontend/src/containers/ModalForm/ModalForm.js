@@ -17,7 +17,7 @@ function ModalForm() {
         event.preventDefault()
         const form = document.forms[0]
         const formData = new FormData(form)
-        let api = LISTS_API
+        let api = state.modal.title === 'Edit List' ? state.modal.item.url : LISTS_API
 
         if (!formData.has('title')) {
             api = state.modal.title === 'Edit Item' ? state.modal.item.url : ITEMS_API
@@ -25,22 +25,27 @@ function ModalForm() {
             const item = formData.get('item')
             formData.set('title', item)
             formData.set('list', active_list.id)
-            formData.delete('item')
+            formData.delete('item')            
         }
 
-        const fetch_func = state.modal.title === 'Edit Item' ? axios.put : axios.post
+        const fetch_func = (state.modal.title === 'Edit Item' || state.modal.title === 'Edit List') ? axios.put : axios.post
         fetch_func(api, formData)
         .then(response => {
             const item = response.data
             if (formData.has('list')) {
                 if (state.modal.title === 'Edit Item') {
                     const index = state.list.items.findIndex(element => element.url === item.url)
-                    state.list.items[index] = response.data
+                    state.list.items[index] = item
                 } else {
-                    state.list.items.unshift(response.data)
+                    state.list.items.unshift(item)
                 }
             } else {
-                state.lists.unshift(response.data)
+                if (state.modal.title === 'Edit List') {
+                    const index = state.lists.findIndex(list => list.url === item.url)
+                    state.lists[index] = item
+                } else {
+                    state.lists.unshift(item)
+                }
             }
             close()
         })
@@ -59,7 +64,7 @@ function ModalForm() {
             <Form onSubmit={ submit }>
                 <ModalBody>
                     { formState.error && <Alert color="danger">{ formState.error }</Alert>}
-                    { !modalState.new_item && <FormGroup><CustomInput type='text' placeholder='Title' name='title' required /></FormGroup> }
+                    { !modalState.new_item && <FormGroup><CustomInput type='text' placeholder='Title' name='title' defaultValue={ modalState.item.title } required /></FormGroup> }
                     { modalState.new_item && <FormGroup><CustomInput type='text' placeholder='Item' name='item' defaultValue={ modalState.item.title } required /></FormGroup> }
                     { modalState.new_item && <FormGroup><CustomInput type='number' min='0' placeholder='Quantity' name='qty' step='1' defaultValue={ modalState.item.qty } required /></FormGroup> }
                     { modalState.new_item && <FormGroup><CustomInput type='number' min='0' placeholder='Price' name='price' step='0.01' defaultValue={ modalState.item.price } required /></FormGroup> }

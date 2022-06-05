@@ -7,6 +7,7 @@ import Header from '../components/Header/Header'
 import Lists from '../containers/Lists/Lists'
 import List from '../containers/List/List'
 import ItemForm from '../containers/ItemForm/ItemForm'
+import GlobalContext from '../context/GlobalContext'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -36,15 +37,17 @@ const App = () => (
     <>
     <GlobalStyle />
     <AppWrapper>
-      <Routes>
-        <Route path='/' element={ <Header /> }>
-          <Route index element={ <Lists /> } />
-          <Route path='list/:id'>
-            <Route index element={ <List />} />
-            <Route path='new' element={ <ItemForm />} />
+      <GlobalContext>
+        <Routes>
+          <Route path='/' element={ <Header /> }>
+            <Route index element={ <Lists /> } />
+            <Route path='list/:id'>
+              <Route index element={ <List />} />
+              <Route path='new' element={ <ItemForm />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </GlobalContext>
     </AppWrapper>
     </>
 )

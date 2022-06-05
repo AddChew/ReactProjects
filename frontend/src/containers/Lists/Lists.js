@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { Alert } from '@bootstrap-styled/v4'
 import { Head } from '../App'
 import SubHeader from '../../components/Header/SubHeader'
 import ListList from '../../components/ListItem/ListList'
-import withDataFetching from '../../withDataFetching'
-import LISTS_API from '../../api/Lists'
+import { ListsContext } from '../../context/ListsContextProvider'
 
 const ListsWrapper = styled.div`
     margin: 0rem;
@@ -22,18 +21,26 @@ const CustomLink = styled(Link)`
     }
 `
 
-const Lists = ({ data, loading, error }) => {
+const Lists = () => {
+    const { lists, loading, error, getListsRequest } = useContext(ListsContext)
     const color = error ? 'danger' : 'info'
+
+    useEffect(() => {
+        if (!lists.length) {
+            getListsRequest()
+        }
+    }, [lists, getListsRequest])
+
     return (
         <>
         <Head title='My Lists' />
         <SubHeader title='My Lists' />
         <ListsWrapper>
             { (loading || error) && <Alert color={ color }>{ loading ? 'Loading...' : error }</Alert>}
-            { data.map(list => <CustomLink key={ list.id } to={ `/list/${list.id}`}><ListList item={ list } /></CustomLink>)}
+            { lists.map(list => <CustomLink key={ list.id } to={ `/list/${list.id}`}><ListList item={ list } /></CustomLink>)}
         </ListsWrapper>
         </>        
     )
 }
 
-export default withDataFetching({ dataSource: LISTS_API })(Lists)
+export default Lists

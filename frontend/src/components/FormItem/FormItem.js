@@ -6,9 +6,9 @@ const CustomInput = styled(Input)`
     box-sizing: border-box;
 `
 
-const FormItem = ({ name, type = 'text', placeholder = '', value = ''}) => (
+const FormItem = ({ name, type = 'text', placeholder = '', value = '', ...props }) => (
     <FormGroup>
-        <CustomInput type={ type } name={ name } defaultValue={ value } placeholder={ placeholder } />
+        <CustomInput type={ type } name={ name } defaultValue={ value } placeholder={ placeholder } {...props} />
     </FormGroup>
 )
 

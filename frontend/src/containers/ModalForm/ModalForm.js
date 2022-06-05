@@ -15,8 +15,7 @@ function ModalForm() {
 
     function submit(event) {
         event.preventDefault()
-        const form = document.forms[0]
-        const formData = new FormData(form)
+        const formData = new FormData(event.target)
         let api = state.modal.title === 'Edit List' ? state.modal.item.url : LISTS_API
 
         if (!formData.has('title')) {

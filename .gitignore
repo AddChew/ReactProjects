@@ -21,3 +21,12 @@
 **/npm-debug.log*
 **/yarn-debug.log*
 **/yarn-error.log*
+
+# migrations
+**/migrations/versions/*.py
+
+# pycache
+__pycache__
+
+# sqlite
+*.sqlite3

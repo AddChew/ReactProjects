@@ -1,6 +1,6 @@
 from fastapi.middleware.cors import CORSMiddleware
 
-from backend.hotelreview.apis import app
+from backend.main import app
 
 
 CORS_ORIGIN_WHITELIST = [

@@ -38,6 +38,8 @@ cd backend/hotelreview
 3. Migrate database
 ```sh
 alembic revision --autogenerate -m "create hotels and reviews tables"
+alembic stamp head
+alembic upgrade head
 ```
 
 ### Run the backend
@@ -46,5 +48,5 @@ alembic revision --autogenerate -m "create hotels and reviews tables"
 
 2. Start up the backend server
 ```sh
-uvicorn backend.hotelreview.apis:app --reload
+uvicorn backend.main:app --reload
 ```

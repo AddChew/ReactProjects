@@ -5,6 +5,7 @@ from pydantic import BaseModel
 class ReviewBase(BaseModel):
     title: str
     description: str
+    rating: int
 
 
 class ReviewCreate(ReviewBase):
@@ -22,6 +23,7 @@ class Review(ReviewBase):
 class HotelBase(BaseModel):
     title: str
     thumbnail: Union[str, None] = None
+    rating: int
 
 
 class HotelCreate(HotelBase):

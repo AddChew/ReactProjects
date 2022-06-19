@@ -2,7 +2,7 @@
 
 ## How to set up the backend
 
-### Install the necessary dependencies
+### Install necessary dependencies
 
 1. Navigate into project root directory (i.e. hotel-review-app)
 
@@ -26,7 +26,7 @@ conda activate hotel-review
 pip install -r requirements.txt
 ```
 
-### Database Migration
+### Migrate database
 
 1. Navigate into project root directory (i.e. hotel-review-app)
 
@@ -42,11 +42,25 @@ alembic stamp head
 alembic upgrade head
 ```
 
-### Run the backend
+### Run backend
 
 1. Navigate into project root directory (i.e. hotel-review-app)
 
 2. Start up the backend server
 ```sh
 uvicorn backend.main:app --reload
+```
+
+### Run backend unit tests
+
+1. Navigate into project root directory (i.e. hotel-review-app)
+
+2. Navigate into backend directory
+```sh
+cd backend
+```
+
+3. Run unit tests
+```sh
+pytest -v
 ```

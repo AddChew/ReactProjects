@@ -22,7 +22,7 @@ def get_hotel_review(db: Session, review_id: int):
     return db.query(models.Review).get(review_id)
 
 
-def get_hotel_reviews(db: Session, skip: int = 0, limit: int = 10):
+def get_hotel_reviews(db: Session, skip: int = 0, limit: int = 4):
     return db.query(models.Review).order_by(models.Review.id.desc()).offset(skip).limit(limit).all()
 
 

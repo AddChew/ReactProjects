@@ -45,7 +45,7 @@ def create_review_for_hotel(hotel_id: int, review: schemas.ReviewCreate, db: Ses
 
 
 @router.get("/reviews/", response_model = List[schemas.Review])
-def read_reviews(skip: int = 0, limit: int = 10, db: Session = Depends(get_database)):
+def read_reviews(skip: int = 0, limit: int = 4, db: Session = Depends(get_database)):
     reviews = services.get_hotel_reviews(db, skip = skip, limit = limit)
     return reviews
 

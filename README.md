@@ -64,3 +64,42 @@ cd backend
 ```sh
 pytest -v
 ```
+
+## How to set up the frontend
+
+### Install necessary dependencies
+
+1. Navigate into project root directory (i.e. hotel-review-app)
+
+2. Navigate into frontend directory
+```sh
+cd frontend
+```
+
+3. Install the required packages
+```sh
+npm install
+```
+
+### Run frontend (development)
+
+1. Navigate into project root directory (i.e. hotel-review-app)
+
+2. Start up the frontend
+```sh
+npm start
+```
+
+### Run frontend (production)
+
+1. Navigate into project root directory (i.e. hotel-review-app)
+
+2. Create optimized production build
+```sh
+npm run build
+```
+
+3. Start up the frontend
+```sh
+serve -s build
+```
